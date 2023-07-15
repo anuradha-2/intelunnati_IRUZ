@@ -1,1 +1,31 @@
-
+Module slow_ division
+(
+ Input [31:0] dividend,
+ Input [31:0] divisor,
+ Output reg [31:0] quotient,
+ Output reg [31:0] remainder,
+ Output reg done
+);
+Reg [63:0] accumulator;
+ Reg [31:0] count;
+ Always @(posedge clk) begin
+ If (!done) begin
+ If (accumulator[31:0] >= divisor) begin
+ Accumulator[63:0] = accumulator[63:0] – divisor;
+ Quotient[count] = 1;
+ End
+ Else
+ Quotient[count] = 0;
+ Accumulator = {accumulator[62:0], quotient[count],
+dividend};
+ Count = count + 1;
+ If (count == 32)
+ Done = 1;
+ End
+ End
+Initial begin
+ Accumulator = {32’b0, dividend};
+ Count = 0;
+ Done = 0;
+ End
+End module
