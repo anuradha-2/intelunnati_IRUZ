@@ -1,3 +1,4 @@
+A. Implementation of Slow Division Algorithm
 Module slow_ division
 (
  Input [31:0] dividend,
@@ -26,6 +27,58 @@ dividend};
 Initial begin
  Accumulator = {32’b0, dividend};
  Count = 0;
+ Done = 0;
+ End
+End
+Initial begin
+ Accumulator = {32’b0, dividend};
+ Count = 0;
+ Done = 0;
+ End
+End module
+B. Implementation of Fast Division Algorithm
+Module fast_ division
+(
+ Input [31:0] dividend,
+ Input [31:0] divisor,
+ Output reg [31:0] quotient,
+ Output reg [31:0] remainder,
+ Output reg done
+);
+Reg [31:0] count;
+ Reg [31:0] subtractor;
+ Reg [31:0] temp_ remainder;
+Always @(posedge clk) begin
+ If (!done) begin
+ If (count == 32) begin
+ Done = 1;
+ Return;
+ End
+If (subtractor >= 0) begin Temp_ remainder =
+temp_ remainder << 1;
+ Temp_ remainder[0] = dividend[31];
+ Dividend = dividend << 1;
+ End
+ Else begin
+ Temp_ remainder = temp_ remainder << 1;
+ Temp_ remainder[0] = ~dividend[31];
+ Dividend = (dividend << 1) + 1;
+ End
+Subtractor = dividend – divisor;
+If (subtractor >= 0) begin
+ Dividend = subtractor;
+ Quotient[count] = 1;
+ End
+Else begin
+ Quotient[count] = 0;
+ End
+ Count = count + 1;
+ End
+ End
+Initial begin
+ Count = 0;
+ Subtractor = dividend;
+ Temp_ remainder = 0;
  Done = 0;
  End
 End module
